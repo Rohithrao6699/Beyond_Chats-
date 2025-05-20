@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "name": "John Smith",
+    "message": "Hey there, how are you doing today? Just checking in.",
+    "time": "5m",
+    "read": false,
+    "avatar": null
+  },
+  {
+    "id": 2,
+    "name": "Sarah Wilson",
+    "message": "Can we discuss the project tomorrow? I've got some ideas.",
+    "time": "10m",
+    "read": true,
+    "avatar": null
+  },
+  {
+    "id": 3,
+    "name": "Mike Johnson",
+    "message": "Thanks for sending those files over. They were very helpful.",
+    "time": "25m",
+    "read": false,
+    "avatar": null
+  },
+  {
+    "id": 4,
+    "name": "Emma Davis",
+    "message": "Hey there, just wanted to follow up on our conversation from...",
+    "time": "1h",
+    "read": true,
+    "avatar": null
+  },
+  {
+    "id": 5,
+    "name": "David Brown",
+    "message": "Meeting scheduled for 3pm. Are you available to join?",
+    "time": "2h",
+    "read": true,
+    "avatar": null
+  }
+]
