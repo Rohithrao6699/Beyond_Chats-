@@ -13,12 +13,12 @@ interface ChatboxProps {
 }
 export function Chatbox(props: ChatboxProps) {
   return (
-    <div className="w-full hover:bg-[#e7ecf8] rounded-lg">
+    <div className="w-full hover:bg-[#e7ecf8] rounded-lg max-h-13">
       <div
         key={props.index}
-        className="flex flex-row gap-2 flex-1 py-3 border-b-1 border-slate-100"
+        className="flex flex-row gap-2 flex-1 py-2 border-b-1 border-slate-100 max-h-13"
       >
-        <div className="h-10 w-10 rounded-full bg-slate-200 flex items-center justify-center">
+        <div className="h-7 w-7 rounded-full bg-slate-200 flex items-center justify-center">
           {props.chat.avatar ? (
             <img
               src={props.chat.avatar}
@@ -26,12 +26,12 @@ export function Chatbox(props: ChatboxProps) {
               className="h-10 w-10 rounded-full"
             />
           ) : (
-            <User size={20} className="text-black" />
+            <User size={15} className="text-black" />
           )}
         </div>
 
         {/* Chat Content */}
-        <div className="max-w-50 flex flex-col gap-1">
+        <div className="max-w-50 flex flex-col">
           {props.chat.read ? (
             <>
               <h3 className="font-medium text-sm text-[#8b8989] truncate">

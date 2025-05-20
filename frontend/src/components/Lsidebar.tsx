@@ -6,7 +6,7 @@ console.log(chats);
 export function LSideBar() {
   return (
     <div className="w-70 border-r-1 border-slate-200 px-2 pt-2 bg-[#fffffe] flex flex-col">
-      <div className="flex justify-between items-center py-2 pl-1">
+      <div className="flex justify-between items-center py-1 pl-1">
         <Dropdown options={["5 Open", "10 Open", "all Open"]} />
         <Dropdown
           options={["Waiting longest", "Recently added", "Alphabetical"]}
