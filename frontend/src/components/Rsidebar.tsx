@@ -2,8 +2,7 @@ import { SquareArrowUp, Sparkles } from "lucide-react";
 
 export function RSideBar() {
   return (
-    <div className="w-90 border-l border-slate-200 h-full flex flex-col bg-gradient-to-br from-[#fafafa] via-[#eee9fa] to-[#ecd3d1] relative overflow-hidden">
-      {/* Content area */}
+    <div className="w-full ml:w-90 border-l border-slate-200 h-full flex flex-col bg-gradient-to-br from-[#fafafa] via-[#eee9fa] to-[#ecd3d1] relative overflow-hidden transition-all duration-500 ease-in-out">
       <div className="flex-1 flex flex-col justify-between p-4 z-10">
         <div className="flex-1 flex flex-col items-center justify-center text-center">
           <div className="bg-slate-900 p-2 rounded-lg mb-4">

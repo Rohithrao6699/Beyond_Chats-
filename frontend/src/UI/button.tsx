@@ -10,11 +10,12 @@ interface ButtonProps {
 }
 
 const typeStyles = {
-  primary: "bg-black text-white rounded-lg",
-  icon: "text-black rounded-lg bg-[#edecec]",
+  primary:
+    "bg-black text-white rounded-lg h-6 lg:h-8 px-1 lg:px-2 cursor-pointer",
+  icon: "text-black rounded-lg bg-[#edecec] h-6 lg:h-8 px-1 lg:px-2 cursor-pointer transition-all duration-300 ease-in-out",
   noborder:
-    "text-[#747474] h-full text-start pb-5 hover:text-transparent hover:border-b-1 hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#373fc4] hover:via-[#7481bd] hover:to-[#b7a9c4]",
-  chat: "text-black font-semibold h-full text-start",
+    "text-[#747474] h-full px-2 cursor-pointer text-start pb-5 hover:text-transparent hover:border-b-1 hover:bg-clip-text hover:bg-gradient-to-r hover:from-[#373fc4] hover:via-[#7481bd] hover:to-[#b7a9c4]",
+  chat: "text-black font-semibold h-full text-start h-8 px-2 cursor-pointer",
 };
 
 const sizeStyles = {
@@ -28,14 +29,12 @@ const textstyles = {
   lg: "font-medium text-sm",
 };
 
-const defaultStyles = "h-8 px-2 cursor-pointer";
-
 export function Button(props: ButtonProps) {
   return (
     <button
       className={`${typeStyles[props.type]} ${sizeStyles[props.size]} ${
         textstyles[props.textstyles]
-      } ${defaultStyles}  ${props.type === "noborder" ? "relative group" : ""}`}
+      } ${props.type === "noborder" ? "relative group" : ""}`}
     >
       {props.type === "primary" && (
         <div className="flex flex-row gap-1 items-center justify-center">

@@ -30,8 +30,7 @@ export function Chatbox(props: ChatboxProps) {
           )}
         </div>
 
-        {/* Chat Content */}
-        <div className="max-w-50 flex flex-col">
+        <div className="min-w-30 max-w-60 ml:max-w-50 flex flex-col transition-all duration-400 ease-in-out">
           {props.chat.read ? (
             <>
               <h3 className="font-medium text-sm text-[#8b8989] truncate">
