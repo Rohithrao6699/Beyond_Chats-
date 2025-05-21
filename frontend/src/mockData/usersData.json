@@ -5,15 +5,39 @@
     "message": "Hey there, how are you doing today? Just checking in.",
     "time": "5m",
     "read": false,
-    "avatar": null
+    "avatar": null,
+    "conversation": [
+      {
+        "sender": "John Smith",
+        "text": "Hey there, how are you doing today?",
+        "timestamp": "5m ago"
+      },
+      {
+        "sender": "Rohith",
+        "text": "Doing great, John. How about you?",
+        "timestamp": "4m ago"
+      }
+    ]
   },
   {
     "id": 2,
     "name": "Sarah Wilson",
     "message": "Can we discuss the project tomorrow? I've got some ideas.",
     "time": "10m",
-    "read": true,
-    "avatar": null
+    "read": false,
+    "avatar": null,
+    "conversation": [
+      {
+        "sender": "Sarah Wilson",
+        "text": "Can we discuss the project tomorrow?",
+        "timestamp": "10m ago"
+      },
+      {
+        "sender": "Rohith",
+        "text": "Yes, looking forward to it!",
+        "timestamp": "9m ago"
+      }
+    ]
   },
   {
     "id": 3,
@@ -21,22 +45,58 @@
     "message": "Thanks for sending those files over. They were very helpful.",
     "time": "25m",
     "read": false,
-    "avatar": null
+    "avatar": null,
+    "conversation": [
+      {
+        "sender": "Mike Johnson",
+        "text": "Those files helped a lot, thanks!",
+        "timestamp": "25m ago"
+      },
+      {
+        "sender": "Rohith",
+        "text": "Glad to hear that!",
+        "timestamp": "24m ago"
+      }
+    ]
   },
   {
     "id": 4,
     "name": "Emma Davis",
     "message": "Hey there, just wanted to follow up on our conversation from...",
     "time": "1h",
-    "read": true,
-    "avatar": null
+    "read": false,
+    "avatar": null,
+    "conversation": [
+      {
+        "sender": "Emma Davis",
+        "text": "Following up on our chat from earlier.",
+        "timestamp": "1h ago"
+      },
+      {
+        "sender": "Rohith",
+        "text": "Yes, I’ve started working on it.",
+        "timestamp": "55m ago"
+      }
+    ]
   },
   {
     "id": 5,
     "name": "David Brown",
     "message": "Meeting scheduled for 3pm. Are you available to join?",
     "time": "2h",
-    "read": true,
-    "avatar": null
+    "read": false,
+    "avatar": null,
+    "conversation": [
+      {
+        "sender": "David Brown",
+        "text": "Can you join the 3pm meeting?",
+        "timestamp": "2h ago"
+      },
+      {
+        "sender": "Rohith",
+        "text": "Yes, I’ll be there.",
+        "timestamp": "1h 45m ago"
+      }
+    ]
   }
 ]

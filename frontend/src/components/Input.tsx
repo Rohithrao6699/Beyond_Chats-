@@ -1,6 +1,6 @@
 import { Smile, ChevronDown, Zap, BookMarked } from "lucide-react";
 import { Button } from "../UI/button";
-import { Chat } from "../icons/chat";
+import { Chat } from "../assets/icons/chat";
 
 export function Input() {
   return (

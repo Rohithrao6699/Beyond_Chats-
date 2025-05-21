@@ -1,7 +1,7 @@
 import { useMediaQuery } from "../hooks/useMediaQuery";
-import { Close } from "../icons/close";
-import { MoreIcon } from "../icons/more";
-import { NightMode } from "../icons/nightMode";
+import { Close } from "../assets/icons/close";
+import { MoreIcon } from "../assets/icons/more";
+import { NightMode } from "../assets/icons/nightMode";
 import { Button } from "../UI/button";
 
 export function Navbar() {
