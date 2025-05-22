@@ -13,7 +13,7 @@ export function Main() {
     <>
       {isDektop && (
         <div className="flex-1 pl-4 pr-4 pt-6 border-r-1 border-slate-200 bg-[#fffffe] flex flex-col h-full">
-          <div className="flex-1 overflow-y-auto flex flex-col gap-4">
+          <div className="flex-1 overflow-y-auto flex flex-col gap-2">
             {selectedUser ? (
               selectedUser.conversation.map((msg, i) => (
                 <MessageBubble data={msg} index={selectedUser.id} key={i} />
@@ -22,7 +22,7 @@ export function Main() {
               <div>Select a convo</div>
             )}
           </div>
-          <Input />
+          <Input user={selectedUser} />
         </div>
       )}
     </>
