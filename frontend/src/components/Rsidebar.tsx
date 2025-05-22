@@ -1,6 +1,27 @@
+import { GoogleGenAI } from "@google/genai";
 import { SquareArrowUp, Sparkles } from "lucide-react";
+import { useSelectedUserStore } from "../store/selectUser";
 
 export function RSideBar() {
+  const selectedUser = useSelectedUserStore((state) => state.selectedUser);
+
+  const apiUrl = import.meta.env.VITE_AI_API_KEY;
+  const ai = new GoogleGenAI({
+    apiKey: apiUrl,
+  });
+
+  async function handleSubmit(e: any) {
+    e.preventDefault();
+    console.log("control reached here!");
+    console.log(selectedUser?.conversation[0].text);
+    const question = selectedUser?.conversation[0].text;
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash",
+      contents: `imagine you are a operations head here for a company, respond to this text ${question}`,
+    });
+    console.log(response.text);
+  }
+
   return (
     <div className="w-full ml:w-90 border-l border-slate-200 h-full flex flex-col bg-gradient-to-br from-[#fafafa] via-[#eee9fa] to-[#ecd3d1] relative overflow-hidden transition-all duration-500 ease-in-out">
       <div className="flex-1 flex flex-col justify-between p-4 z-10">
@@ -22,14 +43,19 @@ export function RSideBar() {
           </button>
 
           <div className="relative mt-4">
-            <input
-              type="text"
-              placeholder="Ask a question..."
-              className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm pr-10 outline-none"
-            />
-            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600">
-              <SquareArrowUp size={18} />
-            </button>
+            <form className="w-full" onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Ask a question..."
+                className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm pr-10 outline-none"
+              />
+              <button
+                type="submit"
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
+              >
+                <SquareArrowUp size={18} />
+              </button>
+            </form>
           </div>
         </div>
       </div>
