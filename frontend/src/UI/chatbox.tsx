@@ -11,6 +11,8 @@ interface ChatboxProps {
 export function Chatbox(props: ChatboxProps) {
   const users = useUserStore((state) => state.users);
   const setUsers = useUserStore((state) => state.setUsers);
+  const setFilteredUsers = useUserStore((state) => state.setFilteredUsers);
+  const filteredUsers = useUserStore((state) => state.filteredUsers);
 
   const selectedUser = useSelectedUserStore((state) => state.selectedUser);
   const setSelectedUser = useSelectedUserStore(
@@ -25,8 +27,12 @@ export function Chatbox(props: ChatboxProps) {
     const updatedUser = users.map((user) =>
       user.id === props.user.id ? { ...user, read: true } : user
     );
+    const updatedfilteredUsers = filteredUsers.map((user) =>
+      user.id === props.user.id ? { ...user, read: true } : user
+    );
     setUsers(updatedUser);
     setSelectedUser({ ...props.user, read: true });
+    setFilteredUsers(updatedfilteredUsers);
     console.log(selectedUser);
   }
 

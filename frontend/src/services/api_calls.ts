@@ -8,7 +8,7 @@ const ai = new GoogleGenAI({
 export async function getResponse(data: string) {
   const response = await ai.models.generateContent({
     model: "gemini-2.0-flash",
-    contents: `imagine you are a operations head here for a company, respond to this text ${data}`,
+    contents: `imagine you are a operations head here for a company, respond to this text ${data} and respons in only 6 lines, just the main content`,
   });
   console.log(response.text);
   return response.text;
