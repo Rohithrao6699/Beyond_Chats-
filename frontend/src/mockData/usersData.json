@@ -11,11 +11,6 @@
         "sender": "John Smith",
         "text": "Hey there, how are you doing today?",
         "timestamp": "5m ago"
-      },
-      {
-        "sender": "Rohith",
-        "text": "Doing great, John. How about you?",
-        "timestamp": "4m ago"
       }
     ]
   },
@@ -31,11 +26,6 @@
         "sender": "Sarah Wilson",
         "text": "Can we discuss the project tomorrow?",
         "timestamp": "10m ago"
-      },
-      {
-        "sender": "Rohith",
-        "text": "Yes, looking forward to it!",
-        "timestamp": "9m ago"
       }
     ]
   },
@@ -51,11 +41,6 @@
         "sender": "Mike Johnson",
         "text": "Those files helped a lot, thanks!",
         "timestamp": "25m ago"
-      },
-      {
-        "sender": "Rohith",
-        "text": "Glad to hear that!",
-        "timestamp": "24m ago"
       }
     ]
   },
@@ -71,11 +56,6 @@
         "sender": "Emma Davis",
         "text": "Following up on our chat from earlier.",
         "timestamp": "1h ago"
-      },
-      {
-        "sender": "Rohith",
-        "text": "Yes, I’ve started working on it.",
-        "timestamp": "55m ago"
       }
     ]
   },
@@ -91,11 +71,6 @@
         "sender": "David Brown",
         "text": "Can you join the 3pm meeting?",
         "timestamp": "2h ago"
-      },
-      {
-        "sender": "Rohith",
-        "text": "Yes, I’ll be there.",
-        "timestamp": "1h 45m ago"
       }
     ]
   }
