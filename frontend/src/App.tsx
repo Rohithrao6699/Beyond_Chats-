@@ -5,12 +5,11 @@ import { RSideBar } from "./components/Rsidebar";
 
 function App() {
   return (
-    <>
-      <div className="flex flex-col h-screen w-screen">
-        <Navbar />
-        <Content />
-      </div>
-    </>
+    <div className="flex flex-col h-screen w-screen">
+      {/* in components folder */}
+      <Navbar />
+      <Content />
+    </div>
   );
 }
 
@@ -19,6 +18,7 @@ export default App;
 function Content() {
   return (
     <div className="h-full flex flex-row overflow-y-hidden">
+      {/* in components folder */}
       <LSideBar />
       <Main />
       <RSideBar />

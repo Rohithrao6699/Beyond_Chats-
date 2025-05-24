@@ -29,8 +29,8 @@ export function MessageBubble(props: MessageBubbleProps) {
               className="w-6 h-6 rounded-full object-cover"
             />
           ) : (
-            <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
-              <User size={14} className="text-gray-500" />
+            <div className="w-6 h-6 rounded-full bg-gray-200 dark:bg-slate-600 flex items-center justify-center">
+              <User size={14} className="text-gray-500 dark:text-slate-300" />
             </div>
           )}
         </div>
@@ -39,14 +39,16 @@ export function MessageBubble(props: MessageBubbleProps) {
       <div
         className={`max-w-md px-2 py-1 rounded-xl ${
           isCurrentUser
-            ? "bg-blue-100 text-gray-900 ml-auto"
-            : "bg-gray-100 text-gray-900"
+            ? "bg-blue-100 dark:bg-blue-900 text-gray-900 dark:text-white ml-auto"
+            : "bg-gray-100 dark:bg-slate-700 text-gray-900 dark:text-white"
         }`}
       >
         <p className="text-xs leading-relaxed">{props.data.text}</p>
         <p
           className={`text-[7px] ${
-            isCurrentUser ? "text-gray-500 text-end" : "text-gray-500"
+            isCurrentUser
+              ? "text-gray-500 dark:text-blue-300 text-end"
+              : "text-gray-500 dark:text-slate-400"
           }`}
         >
           {props.data.timestamp}
@@ -55,8 +57,8 @@ export function MessageBubble(props: MessageBubbleProps) {
 
       {isCurrentUser && (
         <div className="flex-shrink-0 mt-1">
-          <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-            <User size={14} className="text-black" />
+          <div className="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center">
+            <User size={14} className="text-black dark:text-white" />
           </div>
         </div>
       )}

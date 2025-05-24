@@ -7,10 +7,8 @@ interface DropdownProps {
 
 export function Dropdown(props: DropdownProps) {
   const users = useUserStore((state) => state.users);
-  const { setFilteredUsers, filteredUsers } = useUserStore((state) => ({
-    setFilteredUsers: state.setFilteredUsers,
-    filteredUsers: state.filteredUsers,
-  }));
+  const setFilteredUsers = useUserStore((state) => state.setFilteredUsers);
+  const filteredUsers = useUserStore((state) => state.filteredUsers);
 
   function handleOptionClick(option: string) {
     console.log(users);
@@ -38,16 +36,19 @@ export function Dropdown(props: DropdownProps) {
   return (
     <div className="relative text-center flex flex-row items-center justify-center py-1.5 px-2">
       <select
-        className="appearance-none bg-transparent border-none text-sm font-medium text-gray-700 focus:outline-none cursor-pointer pr-5 hover:text-gray-900 transition-colors duration-200"
+        className="appearance-none bg-transparent border-none text-sm font-medium text-gray-700 dark:text-slate-300 focus:outline-none cursor-pointer pr-5 hover:text-gray-900 dark:hover:text-white transition-colors duration-200"
         onChange={(e) => handleOptionClick(e.target.value)}
       >
         {props.options.map((option, index) => (
-          <option key={index} className="text-sm font-medium">
+          <option
+            key={index}
+            className="text-sm font-medium bg-white dark:bg-slate-800 text-gray-700 dark:text-slate-300"
+          >
             {option}
           </option>
         ))}
       </select>
-      <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 h-4 w-4 pointer-events-none text-gray-500" />
+      <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 h-4 w-4 pointer-events-none text-gray-500 dark:text-slate-400" />
     </div>
   );
 }

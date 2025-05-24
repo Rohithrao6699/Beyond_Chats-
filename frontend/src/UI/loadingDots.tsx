@@ -14,6 +14,8 @@ export const LoadingDots = () => (
         style={{ animationDelay: "300ms" }}
       ></div>
     </div>
-    <span className="text-gray-800 text-xs font-medium ml-2">Thinking...</span>
+    <span className="text-gray-800 dark:text-slate-300 text-xs font-medium ml-2">
+      Thinking...
+    </span>
   </div>
 );

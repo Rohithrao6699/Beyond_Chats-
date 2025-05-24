@@ -20,7 +20,7 @@ export function Chatbox(props: ChatboxProps) {
   );
 
   console.log(selectedUser?.id); //intially null on first render
-  let isSelected = selectedUser?.id === props.user.id;
+  let isSelected = selectedUser?.id === props.user?.id;
 
   function handleSelect() {
     console.log(`selected chatbox of ${props.user.name}`);
@@ -39,17 +39,21 @@ export function Chatbox(props: ChatboxProps) {
   return (
     <div
       className={`w-full rounded-lg cursor-pointer transition-all duration-200 ${
-        isSelected ? "bg-[#d6e4ff]" : "hover:bg-[#e7ecf8]"
+        isSelected
+          ? "bg-[#d6e4ff] dark:bg-slate-700"
+          : "hover:bg-[#e7ecf8] dark:hover:bg-slate-800"
       }`}
       onClick={handleSelect}
     >
       <div
         key={props.index}
-        className="flex flex-row gap-3 flex-1 py-3 px-2 border-b border-slate-100"
+        className="flex flex-row gap-3 flex-1 py-3 px-2 border-b border-slate-100 dark:border-slate-700"
       >
         <div
           className={`h-8 w-8 rounded-full ${
-            props.user.read ? "bg-slate-100" : "bg-slate-200"
+            props.user.read
+              ? "bg-slate-100 dark:bg-slate-700"
+              : "bg-slate-200 dark:bg-slate-600"
           } flex items-center justify-center flex-shrink-0`}
         >
           {props.user.avatar ? (
@@ -62,7 +66,9 @@ export function Chatbox(props: ChatboxProps) {
             <User
               size={16}
               className={`${
-                props.user.read ? "text-gray-600" : "text-gray-800"
+                props.user.read
+                  ? "text-gray-600 dark:text-slate-400"
+                  : "text-gray-800 dark:text-slate-300"
               }`}
             />
           )}
@@ -72,8 +78,8 @@ export function Chatbox(props: ChatboxProps) {
           <h3
             className={`text-sm leading-tight truncate mb-1 ${
               props.user.read
-                ? "text-gray-600 font-medium"
-                : "text-gray-900 font-semibold"
+                ? "text-gray-600 dark:text-slate-400 font-medium"
+                : "text-gray-900 dark:text-white font-semibold"
             }`}
           >
             {props.user.name}
@@ -83,15 +89,17 @@ export function Chatbox(props: ChatboxProps) {
             <p
               className={`text-xs leading-relaxed truncate flex-1 ${
                 props.user.read
-                  ? "text-gray-500 font-normal"
-                  : "text-gray-700 font-medium"
+                  ? "text-gray-500 dark:text-slate-500 font-normal"
+                  : "text-gray-700 dark:text-slate-300 font-medium"
               }`}
             >
               {props.user.message}
             </p>
             <span
               className={`text-xs font-medium whitespace-nowrap ml-2 ${
-                props.user.read ? "text-gray-400" : "text-gray-500"
+                props.user.read
+                  ? "text-gray-400 dark:text-slate-500"
+                  : "text-gray-500 dark:text-slate-400"
               }`}
             >
               {props.user.time}

@@ -3,3 +3,5 @@
 @theme {
   --breakpoint-ml: 880px;
 }
+
+@custom-variant dark (&:where(.dark, .dark *));

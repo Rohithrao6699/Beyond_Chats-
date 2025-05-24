@@ -1,14 +1,14 @@
 [
   {
     "id": 1,
-    "name": "John Smith",
-    "message": "Hey there, how are you doing today? Just checking in.",
+    "name": "Ritesh",
+    "message": "Hey, I placed an order yesterday. Just checking in—has it shipped yet?",
     "time": "5m",
     "read": false,
     "avatar": null,
     "conversation": [
       {
-        "sender": "John Smith",
+        "sender": "Ritesh",
         "text": "Hey, I placed an order yesterday. Just checking in—has it shipped yet?",
         "timestamp": "5m ago"
       }
@@ -16,14 +16,14 @@
   },
   {
     "id": 2,
-    "name": "Sarah Wilson",
-    "message": "Can we discuss the project tomorrow? I've got some ideas.",
+    "name": "Rhea Rilpey",
+    "message": "I have some ideas about improving product recommendations—can I speak to someone from your support team tomorrow?",
     "time": "10m",
     "read": false,
     "avatar": null,
     "conversation": [
       {
-        "sender": "Sarah Wilson",
+        "sender": "Rhea Rilpey",
         "text": "I have some ideas about improving product recommendations—can I speak to someone from your support team tomorrow?",
         "timestamp": "10m ago"
       }
@@ -31,14 +31,14 @@
   },
   {
     "id": 3,
-    "name": "Mike Johnson",
-    "message": "Thanks for sending those files over. They were very helpful.",
+    "name": "Aarum Bose",
+    "message": "Thanks for the tracking details you sent—they were really helpful in finding my delivery status.",
     "time": "25m",
     "read": false,
     "avatar": null,
     "conversation": [
       {
-        "sender": "Mike Johnson",
+        "sender": "Aarum Bose",
         "text": "Thanks for the tracking details you sent—they were really helpful in finding my delivery status.",
         "timestamp": "25m ago"
       }
@@ -47,7 +47,7 @@
   {
     "id": 4,
     "name": "Emma Davis",
-    "message": "Hey there, just wanted to follow up on our conversation from...",
+    "message": "Just following up on our chat earlier—has my return request for the headphones been processed?",
     "time": "1h",
     "read": false,
     "avatar": null,
@@ -61,14 +61,14 @@
   },
   {
     "id": 5,
-    "name": "David Brown",
-    "message": "Meeting scheduled for 3pm. Are you available to join?",
+    "name": "MR Rao",
+    "message": "I scheduled a call with your premium support at 3 PM today—will someone be available?",
     "time": "2h",
     "read": false,
     "avatar": null,
     "conversation": [
       {
-        "sender": "David Brown",
+        "sender": "MR Rao",
         "text": "I scheduled a call with your premium support at 3 PM today—will someone be available?",
         "timestamp": "2h ago"
       }
