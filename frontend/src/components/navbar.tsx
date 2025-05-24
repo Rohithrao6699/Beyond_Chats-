@@ -5,8 +5,10 @@ import { Button } from "../UI/button";
 import { ThemeToggle } from "./ThemeToggler";
 import { useEffect } from "react";
 import { useToggleStore } from "../store/toggleMain";
+import { useSelectedUserStore } from "../store/selectUser";
 
 export function Navbar() {
+  const selectedUser = useSelectedUserStore((state) => state.selectedUser);
   const isOpen = useToggleStore((state) => state.isOpen);
   const setIsOpen = useToggleStore((state) => state.setIsOpen);
   const toggleIsOpen = useToggleStore((state) => state.toggleIsOpen);
@@ -35,7 +37,7 @@ export function Navbar() {
       {isOpen && (
         <div className="flex-1 flex flex-row justify-between px-4 pt-1 h-full border-r-1 border-slate-100 dark:border-slate-700 transition-all duration-300 ease-in-out">
           <div className="font-semibold text-base lg:text-lg tracking-tight transition-all duration-300 ease-in-out dark:text-white">
-            Luis Easton
+            {selectedUser ? selectedUser.name : "BeyondZZ"}
           </div>
           <div className="flex flex-row gap-2">
             <Button

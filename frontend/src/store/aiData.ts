@@ -3,7 +3,7 @@ import { create } from "zustand";
 type DataStore = {
   data: string | null;
   suggestions: string | null;
-  setData: (response: string) => void;
+  setData: (response: string | null) => void;
   setSuggestions: (suggestion: string) => void;
 };
 

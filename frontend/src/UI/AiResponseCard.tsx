@@ -1,10 +1,12 @@
 import { Copy, Sparkles, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import { LoadingLines } from "./loadingLines";
+import toast from "react-hot-toast";
 
 interface AIresponseCardProps {
   loading: boolean;
   aiData: string;
+  setAiData: (response: string | null) => void;
 }
 export function AIrespnseCard(props: AIresponseCardProps) {
   const [copied, setCopied] = useState<boolean>(false);
@@ -15,6 +17,7 @@ export function AIrespnseCard(props: AIresponseCardProps) {
         await navigator.clipboard.writeText(props.aiData);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
+        toast.success("copied to clipboard");
       } catch (error) {
         console.error("Failed to copy text:", error);
       }
@@ -33,7 +36,7 @@ export function AIrespnseCard(props: AIresponseCardProps) {
           <div className="ml-auto flex gap-1">
             <button
               onClick={handleCopy}
-              className="p-1 hover:bg-purple-100/50 dark:hover:bg-purple-800/50 rounded-md transition-colors"
+              className="p-1 hover:bg-purple-100/50 dark:hover:bg-purple-800/50 rounded-md transition-colors cursor-pointer"
               title="Copy response"
             >
               <Copy

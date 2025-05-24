@@ -7,6 +7,7 @@ import { LoadingDots } from "../UI/loadingDots";
 import { RSideBarInput } from "../UI/RSideBarInput";
 import { SuggestionBox } from "../UI/SuggestionBoxRsideBar";
 import { AIrespnseCard } from "../UI/AiResponseCard";
+import { useSelectedMessageStore } from "../store/SelectedMessage";
 
 export function RSideBar() {
   const selectedUser = useSelectedUserStore((state) => state.selectedUser);
@@ -14,6 +15,9 @@ export function RSideBar() {
   const suggestions = useAiData((state) => state.suggestions);
   const aiData = useAiData((state) => state.data);
   const setAiData = useAiData((state) => state.setData);
+  const setSelectedMessage = useSelectedMessageStore(
+    (state) => state.setSelectedMessage
+  );
 
   const [loading, setLoading] = useState<boolean>(false);
   const [suggestionLoading, setSuggestionLoading] = useState<boolean>(false);
@@ -28,12 +32,14 @@ export function RSideBar() {
       const question = inputRef.current?.value;
       const conversation = selectedUser?.conversation;
       if (question?.trim()) {
+        setSelectedMessage(question);
         const response = await getResponse(question, conversation);
         console.log(response);
         if (response) {
           setAiData(response);
           if (inputRef.current) {
             inputRef.current.value = "";
+            setSelectedMessage("");
           }
         }
       }
@@ -97,7 +103,11 @@ export function RSideBar() {
         <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
           {aiData ? (
             //In UI folder
-            <AIrespnseCard loading={loading} aiData={aiData} />
+            <AIrespnseCard
+              loading={loading}
+              aiData={aiData}
+              setAiData={setAiData}
+            />
           ) : (
             <>
               {loading ? (

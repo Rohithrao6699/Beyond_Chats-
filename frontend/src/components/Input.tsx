@@ -1,16 +1,18 @@
 import { Smile, ChevronDown, Zap, BookMarked } from "lucide-react";
-import { Button } from "../UI/button";
-import { Chat } from "../assets/icons/chat";
 import type { Users } from "../types/userTypes";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useSelectedUserStore } from "../store/selectUser";
 import { useUserStore } from "../store/allUsers";
+import { getDetailedResponse, getHumanResponse } from "../services/api_calls";
+import toast from "react-hot-toast";
 
 interface InputProps {
   user: Users | null;
 }
 
 export function Input(props: InputProps) {
+  const [loading, setLoading] = useState(false);
+
   const filteredUsers = useUserStore((state) => state.filteredUsers);
   const setFilteredUsers = useUserStore((state) => state.setFilteredUsers);
   const setUsers = useUserStore((state) => state.setUsers);
@@ -18,6 +20,7 @@ export function Input(props: InputProps) {
   const SetselectedUser = useSelectedUserStore(
     (state) => state.setSelectedUser
   );
+  const selectedUser = useSelectedUserStore((state) => state.selectedUser);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -27,7 +30,7 @@ export function Input(props: InputProps) {
       const data = textAreaRef.current?.value;
       const user = props.user;
       if (data) {
-        //updating the selcted users conversation
+        //updating the selected users conversation
         const updatedUser = {
           ...user,
           conversation: [
@@ -57,29 +60,56 @@ export function Input(props: InputProps) {
     }
   }
 
-  function handleChatClick() {
-    console.log("clicked on chat");
+  async function handleChatClick(option: string) {
+    console.log(option);
+    const text = textAreaRef.current?.value;
+    const conversation = selectedUser?.conversation;
+    if (text) {
+      if (option === "More like me") {
+        setLoading(true);
+        const response = await getHumanResponse(text, conversation);
+        console.log(response);
+        if (response && textAreaRef.current) {
+          textAreaRef.current.value = response;
+          toast.success("generated a more humanly response");
+        }
+        setLoading(false);
+      } else if (option === "More detailed response") {
+        setLoading(true);
+        console.log(text);
+        const response = await getDetailedResponse(text, conversation);
+        console.log(response);
+        if (response && textAreaRef.current) {
+          console.log(textAreaRef.current);
+          textAreaRef.current.value = response;
+          toast.success("generated a more detailed response");
+        }
+        setLoading(false);
+      } else {
+        console.log("nothing");
+      }
+    }
   }
   return (
     <div className="border-t border-slate-200 dark:border-slate-700 p-2 lg:p-4">
       <div className="flex flex-col justify-start items-start bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-600 rounded-xl px-2 lg:px-3 py-1 lg:py-2 shadow-xl transition-all duration-300 ease-in-out">
         <form onSubmit={handleSubmit} className="w-full">
-          {/* in UI folder */}
-          <Button
-            onClick={handleChatClick}
-            variant="chat"
-            size="sm"
-            textstyles="sm"
-            content="Chat"
-            icon={<Chat size="md" />}
-            icon2={
-              <ChevronDown
-                size={14}
-                color="black"
-                className="dark:text-white"
-              />
-            }
-          />
+          {loading ? (
+            <div className="flex flex-row items-center">
+              <div className="animate-spin rounded-full h-2.5 w-2.5 border-b-3 border-purple-500 mr-1.5"></div>
+              Loading...
+            </div>
+          ) : (
+            <select
+              onChange={(e) => handleChatClick(e.target.value)}
+              className="bg-white dark:bg-black text-gray-800 dark:text-white font-semibold h-8 px-3 cursor-pointer tracking-tight text-sm rounded-lg border-none outline-none shadow-sm w-fit"
+            >
+              <option>Chat</option>
+              <option>More like me</option>
+              <option>More detailed response</option>
+            </select>
+          )}
+
           <textarea
             ref={textAreaRef}
             placeholder="Use ⌘K for shortcuts"
@@ -90,6 +120,7 @@ export function Input(props: InputProps) {
               lineHeight: "1.5",
             }}
           />
+
           <div className="flex flex-row justify-between items-center w-full px-2">
             <div className="hidden lg:flex flex-row gap-1 lg:gap-2">
               <Zap
