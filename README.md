@@ -3,6 +3,7 @@
 A modern, responsive customer service web application built with **React + TypeScript**, featuring real-time AI chat suggestions, dynamic user interaction, a clean component architecture and professional styling with seamless animations. The app uses **Zustand** for state management and includes mock data, ready for backend integration.
 
 ---
+🔗 **Live Demo:** [beyond-chats-drab.vercel.app](https://beyond-chats-drab.vercel.app/)
 
 ## 🚀 Features
 
