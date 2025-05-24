@@ -1,147 +1,140 @@
-import { SquareArrowUp, Sparkles } from "lucide-react";
+import { Bot } from "lucide-react";
 import { useSelectedUserStore } from "../store/selectUser";
 import { getResponse, getSuggestion } from "../services/api_calls";
 import { useEffect, useRef, useState } from "react";
 import { useAiData } from "../store/aiData";
+import { LoadingDots } from "../UI/loadingDots";
+import { RInput } from "../UI/InputRSideBar";
+import { SuggestionBox } from "../UI/SuggestionBoxRsideBar";
+import { AIrespnseCard } from "../UI/AiResponseCard";
 
 export function RSideBar() {
   const selectedUser = useSelectedUserStore((state) => state.selectedUser);
-  const setSuggestions = useAiData((state) => state.setSuggestions);
-  const suggestions = useAiData((state) => state.suggestions);
-  const aiData = useAiData((state) => state.data);
-  const setAiData = useAiData((state) => state.setData);
+  const { setSuggestions, suggestions, aiData, setAiData } = useAiData(
+    (state) => ({
+      setSuggestions: state.setSuggestions,
+      suggestions: state.suggestions,
+      aiData: state.data,
+      setAiData: state.setData,
+    })
+  );
 
   const [loading, setLoading] = useState<boolean>(false);
   const [suggestionLoading, setSuggestionLoading] = useState<boolean>(false);
+
   const inputRef = useRef<HTMLInputElement>(null);
 
-  async function handleSubmit(e: any) {
+  //handler when user types in input box and sends for ai response
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setLoading(true);
     try {
       const question = inputRef.current?.value;
-      if (question) {
-        const response = await getResponse(question);
+      const conversation = selectedUser?.conversation;
+      if (question?.trim()) {
+        const response = await getResponse(question, conversation);
         console.log(response);
         if (response) {
           setAiData(response);
+          if (inputRef.current) {
+            inputRef.current.value = "";
+          }
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error getting response:", error);
     } finally {
       setLoading(false);
     }
   }
 
+  //handler when user clicks on suggestedData
   async function handleSuggestionSubmit() {
     setLoading(true);
     try {
-      if (suggestions && suggestions !== "select a convo") {
-        const response = await getResponse(suggestions);
-        if (response) {
-          setAiData(response);
+      if (suggestions && suggestions !== "Select a conversation first") {
+        const conversation = selectedUser?.conversation;
+        if (conversation) {
+          const response = await getResponse(suggestions, conversation);
+          if (response) {
+            setAiData(response);
+          }
         }
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error getting suggestion response:", error);
     } finally {
       setLoading(false);
     }
   }
 
-  async function getSuggestions() {
+  //function to automatically fetch suggestions
+  async function getSuggestionsData() {
     setSuggestionLoading(true);
     try {
-      const conversation = selectedUser?.conversation[0].text;
-      if (conversation) {
-        const data = await getSuggestion(conversation);
+      const userQuery = selectedUser?.conversation[0].text;
+      const conversation = selectedUser?.conversation;
+      console.log(userQuery);
+      if (userQuery && conversation) {
+        const data = await getSuggestion(userQuery, conversation);
         if (data) {
           setSuggestions(data);
         }
+      } else {
+        setSuggestions("Select a conversation first");
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error getting suggestions:", error);
+      setSuggestions("Failed to load suggestions");
     } finally {
       setSuggestionLoading(false);
     }
   }
 
-  useEffect(
-    function () {
-      getSuggestions();
-    },
-    [selectedUser]
-  );
+  useEffect(() => {
+    getSuggestionsData();
+  }, [selectedUser]);
 
   return (
-    <div className="w-full ml:w-90 border-l border-slate-200 h-full flex flex-col bg-gradient-to-br from-[#fafafa] via-[#eee9fa] to-[#ecd3d1] relative overflow-hidden transition-all duration-500 ease-in-out">
-      <div className="flex-1 flex flex-col justify-between p-4 z-10">
-        <div className="flex-1 flex flex-col items-center justify-center text-center">
+    <div className="w-full ml:w-90 border-l border-purple-200/30 h-full flex flex-col bg-gradient-to-br from-[#fafafa] via-[#eee9fa] to-[#ecd3d1] relative overflow-hidden custom-scrollbar-container">
+      <div className="flex-1 flex flex-col justify-between p-3">
+        <div className="flex-1 flex flex-col items-center justify-center text-center min-h-0">
           {aiData ? (
-            <div className="flex flex-row gap-1">
-              <div className=" self-end bg-slate-900 h-5 min-w-5 rounded-full flex items-center justify-center">
-                <Sparkles size={15} className="text-white" />
-              </div>
-              <div className="font-normal text-sm p-1 shadow-md rounded-md tracking-wide text-left flex justify-between items-center bg-gradient-to-br from-[#fafafa] via-[#e2d9f7] to-[#bc9e9c]">
-                {loading ? "loading..." : aiData}
-              </div>
-            </div>
+            <AIrespnseCard loading={loading} aiData={aiData} />
           ) : (
             <>
-              <div className="bg-slate-900 p-2 rounded-lg mb-4">
-                <Sparkles size={24} className="text-white" />
-              </div>
               {loading ? (
-                <div className="font-normal text-sm p-1 shadow-md rounded-md tracking-wide text-left flex justify-between items-center bg-gradient-to-br from-[#fafafa] via-[#e2d9f7] to-[#bc9e9c]">
-                  {loading ? "loading..." : aiData}
+                <div className="bg-white/80 backdrop-blur-sm border border-purple-300/30 rounded-xl shadow-md p-4 w-full max-w-sm">
+                  <LoadingDots />
                 </div>
               ) : (
                 <>
-                  <h3 className="font-bold text-lg mb-1">
-                    Hi, I'm Fin AI Copilot
+                  <div className="p-2 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl mb-3 shadow-lg">
+                    <Bot size={20} className="text-white" />
+                  </div>
+                  <h3 className="font-bold text-base mb-1.5 text-gray-800">
+                    Customer Service AI
                   </h3>
-                  <p className="text-slate-500 text-sm">
-                    Ask me anything about this conversation.
+                  <p className="text-gray-800/80 text-xs max-w-xs leading-relaxed">
+                    Ask me about policies, suggest responses, or get guidance.
                   </p>
                 </>
               )}
             </>
           )}
         </div>
-
-        <div className="mt-4">
-          <p className="text-xs font-medium text-slate-500 mb-2">Suggested</p>
-          <button className="flex items-center bg-white hover:bg-slate-100 rounded-lg px-3 py-1 text-sm mb-2 w-[70%]">
-            <Sparkles size={14} className="mr-2 text-yellow-500" />
-            <span
-              onClick={handleSuggestionSubmit}
-              className="text-left cursor-pointer"
-            >
-              {suggestions
-                ? suggestionLoading
-                  ? "loading..."
-                  : suggestions
-                : "select a convo"}
-            </span>
-          </button>
-
-          <div className="relative mt-4">
-            <form className="w-full" onSubmit={handleSubmit}>
-              <input
-                ref={inputRef}
-                type="text"
-                placeholder="Ask a question..."
-                className="w-full px-4 py-2 bg-white border border-slate-200 rounded-lg text-sm pr-10 outline-none"
-              />
-              <button
-                type="submit"
-                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-slate-400 hover:text-slate-600"
-              >
-                <SquareArrowUp size={18} />
-              </button>
-            </form>
-          </div>
+        <div className="mt-4 space-y-3 flex-shrink-0">
+          <SuggestionBox
+            loading={loading}
+            suggestionLoading={suggestionLoading}
+            suggestions={suggestions}
+            handleSuggestionSubmit={handleSuggestionSubmit}
+          />
+          <RInput
+            loading={loading}
+            reference={inputRef}
+            handleSubmit={handleSubmit}
+          />
         </div>
       </div>
     </div>

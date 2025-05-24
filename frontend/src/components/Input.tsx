@@ -11,20 +11,27 @@ interface InputProps {
 }
 
 export function Input(props: InputProps) {
+  const { setFilteredUsers, filteredUsers } = useUserStore((state) => ({
+    setFilteredUsers: state.setFilteredUsers,
+    filteredUsers: state.filteredUsers,
+  }));
+  const { setUsers, Users } = useUserStore((state) => ({
+    setUsers: state.setUsers,
+    Users: state.users,
+  }));
   const SetselectedUser = useSelectedUserStore(
     (state) => state.setSelectedUser
   );
-  const setUsers = useUserStore((state) => state.setUsers);
-  const Users = useUserStore((state) => state.users);
 
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
-  function handleSubmit(e: any) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (props.user) {
       const data = textAreaRef.current?.value;
       const user = props.user;
       if (data) {
+        //updating the selcted users conversation
         const updatedUser = {
           ...user,
           conversation: [
@@ -34,11 +41,20 @@ export function Input(props: InputProps) {
         };
         console.log(updatedUser);
         SetselectedUser(updatedUser);
+
+        //updating the global users state
         const updatedUsers = Users.map((u) =>
           u.id === user.id ? updatedUser : u
         );
         setUsers(updatedUsers);
+
+        //updating the filtered users state
+        const updatedFilteredUsers = filteredUsers.map((u) =>
+          u.id === user.id ? updatedUser : u
+        );
+        setFilteredUsers(updatedFilteredUsers);
       }
+
       if (textAreaRef.current) {
         textAreaRef.current.value = "";
       }

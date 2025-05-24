@@ -9,7 +9,7 @@
     "conversation": [
       {
         "sender": "John Smith",
-        "text": "Hey there, how are you doing today?",
+        "text": "Hey, I placed an order yesterday. Just checking in—has it shipped yet?",
         "timestamp": "5m ago"
       }
     ]
@@ -24,7 +24,7 @@
     "conversation": [
       {
         "sender": "Sarah Wilson",
-        "text": "Can we discuss the project tomorrow?",
+        "text": "I have some ideas about improving product recommendations—can I speak to someone from your support team tomorrow?",
         "timestamp": "10m ago"
       }
     ]
@@ -39,7 +39,7 @@
     "conversation": [
       {
         "sender": "Mike Johnson",
-        "text": "Those files helped a lot, thanks!",
+        "text": "Thanks for the tracking details you sent—they were really helpful in finding my delivery status.",
         "timestamp": "25m ago"
       }
     ]
@@ -54,7 +54,7 @@
     "conversation": [
       {
         "sender": "Emma Davis",
-        "text": "Following up on our chat from earlier.",
+        "text": "Just following up on our chat earlier—has my return request for the headphones been processed?",
         "timestamp": "1h ago"
       }
     ]
@@ -69,7 +69,7 @@
     "conversation": [
       {
         "sender": "David Brown",
-        "text": "Can you join the 3pm meeting?",
+        "text": "I scheduled a call with your premium support at 3 PM today—will someone be available?",
         "timestamp": "2h ago"
       }
     ]

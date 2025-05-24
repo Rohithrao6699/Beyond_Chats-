@@ -7,16 +7,10 @@ interface DropdownProps {
 
 export function Dropdown(props: DropdownProps) {
   const users = useUserStore((state) => state.users);
-  const setFilteredUsers = useUserStore((state) => state.setFilteredUsers);
-  const filteredUsers = useUserStore((state) => state.filteredUsers);
-
-  function parseTimeToMinutes(timeStr: string): number {
-    const match = timeStr.match(/^(\d+)([mh])$/); // matches "25m", "1h"
-    if (!match) return 0;
-    const value = parseInt(match[1], 10);
-    const unit = match[2];
-    return unit === "h" ? value * 60 : value;
-  }
+  const { setFilteredUsers, filteredUsers } = useUserStore((state) => ({
+    setFilteredUsers: state.setFilteredUsers,
+    filteredUsers: state.filteredUsers,
+  }));
 
   function handleOptionClick(option: string) {
     console.log(users);
@@ -25,19 +19,9 @@ export function Dropdown(props: DropdownProps) {
       setFilteredUsers(users.slice(0, 2));
     } else if (option === "4 Open") {
       console.log("reached 4 open");
-      console.log(option);
       setFilteredUsers(users.slice(0, 4));
-    } else if (option === "Waiting longest") {
-      console.log("reached waiting longest");
-      // Sort by oldest message first (e.g., sort by `time`)
-      const sorted = [...filteredUsers].sort((a, b) => {
-        // You can improve this with actual timestamp parsing if needed
-        return parseTimeToMinutes(b.time) - parseTimeToMinutes(a.time);
-      });
-      setFilteredUsers(sorted);
     } else if (option === "Recently added") {
       console.log("reached Recently added");
-      // Assuming newest users are added last, just reverse
       setFilteredUsers([...filteredUsers].reverse());
     } else if (option === "Alphabetical") {
       console.log("reached Alphabetical");
@@ -52,18 +36,18 @@ export function Dropdown(props: DropdownProps) {
   }
 
   return (
-    <>
-      <div className="relative text-center flex flex-row items-center justify-center py-1">
-        <select
-          className="appearance-none bg-transparent border-none text-xs font-normal ml:font-medium focus:outline-none cursor-pointer pr-4"
-          onChange={(e) => handleOptionClick(e.target.value)}
-        >
-          {props.options.map((option, index) => (
-            <option key={index}>{option}</option>
-          ))}
-        </select>
-        <ChevronDown className="absolute right-0 top-1/2 transform -translate-y-1/2 h-4 w-4 pointer-events-none" />
-      </div>
-    </>
+    <div className="relative text-center flex flex-row items-center justify-center py-1.5 px-2">
+      <select
+        className="appearance-none bg-transparent border-none text-sm font-medium text-gray-700 focus:outline-none cursor-pointer pr-5 hover:text-gray-900 transition-colors duration-200"
+        onChange={(e) => handleOptionClick(e.target.value)}
+      >
+        {props.options.map((option, index) => (
+          <option key={index} className="text-sm font-medium">
+            {option}
+          </option>
+        ))}
+      </select>
+      <ChevronDown className="absolute right-1 top-1/2 transform -translate-y-1/2 h-4 w-4 pointer-events-none text-gray-500" />
+    </div>
   );
 }

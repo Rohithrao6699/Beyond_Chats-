@@ -8,33 +8,58 @@ interface MessageBubbleProps {
 }
 
 export function MessageBubble(props: MessageBubbleProps) {
+  //we could even use the filtered users list here
   const users = useUserStore((state) => state.users);
   const user = users.find((u) => u.id === props.index);
 
+  const isCurrentUser = props.data.sender === "Rohith";
+
   return (
     <div
-      className={`flex ${
-        props.data.sender === "Rohith" ? "flex-row-reverse" : "flex-row"
-      } min-h-9 gap-1 pt-2`}
+      className={`flex items-start gap-2 ${
+        isCurrentUser ? "justify-end" : "justify-start"
+      }`}
     >
-      <div className="h-3 w-3 lg:h-4 lg:w-4 rounded-full bg-slate-200 flex items-center justify-center self-end transition-all duration-300 ease-in-out">
-        {user?.avatar ? (
-          <img
-            src={user?.avatar}
-            alt={user?.name}
-            className="h-4 w-4 rounded-full"
-          />
-        ) : (
-          <User size={9} className="text-black" />
-        )}
-      </div>
+      {!isCurrentUser && (
+        <div className="flex-shrink-0 mt-1">
+          {user?.avatar ? (
+            <img
+              src={user.avatar}
+              alt={user.name}
+              className="w-6 h-6 rounded-full object-cover"
+            />
+          ) : (
+            <div className="w-6 h-6 rounded-full bg-gray-200 flex items-center justify-center">
+              <User size={14} className="text-gray-500" />
+            </div>
+          )}
+        </div>
+      )}
+
       <div
-        className={`${
-          props.data.sender === "Rohith" ? "bg-blue-100" : "bg-[#eeeeee]"
-        } rounded-md p-1 font-normal text-xs lg:text-sm transition-all duration-300 ease-in-out`}
+        className={`max-w-md px-2 py-1 rounded-xl ${
+          isCurrentUser
+            ? "bg-blue-100 text-gray-900 ml-auto"
+            : "bg-gray-100 text-gray-900"
+        }`}
       >
-        {props.data.text}
+        <p className="text-xs leading-relaxed">{props.data.text}</p>
+        <p
+          className={`text-[7px] ${
+            isCurrentUser ? "text-gray-500 text-end" : "text-gray-500"
+          }`}
+        >
+          {props.data.timestamp}
+        </p>
       </div>
+
+      {isCurrentUser && (
+        <div className="flex-shrink-0 mt-1">
+          <div className="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
+            <User size={14} className="text-black" />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

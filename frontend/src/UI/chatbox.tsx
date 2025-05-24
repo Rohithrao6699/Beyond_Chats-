@@ -19,18 +19,18 @@ export function Chatbox(props: ChatboxProps) {
     (state) => state.setSelectedUser
   );
 
-  console.log(selectedUser?.id);
+  console.log(selectedUser?.id); //intially null on first render
   let isSelected = selectedUser?.id === props.user.id;
 
   function handleSelect() {
-    console.log(`seleceted chatbox of ${props.user.name}`);
-    const updatedUser = users.map((user) =>
+    console.log(`selected chatbox of ${props.user.name}`);
+    const updatedUsers = users.map((user) =>
       user.id === props.user.id ? { ...user, read: true } : user
     );
     const updatedfilteredUsers = filteredUsers.map((user) =>
       user.id === props.user.id ? { ...user, read: true } : user
     );
-    setUsers(updatedUser);
+    setUsers(updatedUsers);
     setSelectedUser({ ...props.user, read: true });
     setFilteredUsers(updatedfilteredUsers);
     console.log(selectedUser);
@@ -38,57 +38,60 @@ export function Chatbox(props: ChatboxProps) {
 
   return (
     <div
-      className={`w-full rounded-lg max-h-13 cursor-pointer transition-colors ${
+      className={`w-full rounded-lg cursor-pointer transition-all duration-200 ${
         isSelected ? "bg-[#d6e4ff]" : "hover:bg-[#e7ecf8]"
       }`}
       onClick={handleSelect}
     >
       <div
         key={props.index}
-        className="flex flex-row gap-2 flex-1 py-2 border-b-1 border-slate-100 max-h-13"
+        className="flex flex-row gap-3 flex-1 py-3 px-2 border-b border-slate-100"
       >
         <div
-          className={`h-7 w-7 rounded-full  ${
+          className={`h-8 w-8 rounded-full ${
             props.user.read ? "bg-slate-100" : "bg-slate-200"
-          } flex items-center justify-center`}
+          } flex items-center justify-center flex-shrink-0`}
         >
           {props.user.avatar ? (
             <img
               src={props.user.avatar}
               alt={props.user.name}
-              className="h-10 w-10 rounded-full"
+              className="h-8 w-8 rounded-full object-cover"
             />
           ) : (
             <User
-              size={15}
-              className={`${props.user.read ? "text-gray-600" : "text-black"}`}
+              size={16}
+              className={`${
+                props.user.read ? "text-gray-600" : "text-gray-800"
+              }`}
             />
           )}
         </div>
 
-        <div className="min-w-30 max-w-60 ml:max-w-50 flex flex-col transition-all duration-400 ease-in-out">
+        <div className="min-w-30 max-w-60 ml:max-w-50 flex flex-col justify-center flex-1 transition-all duration-400 ease-in-out">
           <h3
-            className={`text-sm truncate ${
+            className={`text-sm leading-tight truncate mb-1 ${
               props.user.read
-                ? "text-[#6b7280] font-normal"
-                : "text-[#111827] font-semibold"
+                ? "text-gray-600 font-medium"
+                : "text-gray-900 font-semibold"
             }`}
           >
             {props.user.name}
           </h3>
-          <div className="flex justify-between items-baseline">
+
+          <div className="flex justify-between items-center gap-2">
             <p
-              className={`text-xs truncate ${
+              className={`text-xs leading-relaxed truncate flex-1 ${
                 props.user.read
-                  ? "text-[#8b8989] font-normal"
-                  : "text-black font-normal"
+                  ? "text-gray-500 font-normal"
+                  : "text-gray-700 font-medium"
               }`}
             >
               {props.user.message}
             </p>
             <span
-              className={`text-xs ml-2 whitespace-nowrap ${
-                props.user.read ? "text-[#8b8989] " : "text-slate-500"
+              className={`text-xs font-medium whitespace-nowrap ml-2 ${
+                props.user.read ? "text-gray-400" : "text-gray-500"
               }`}
             >
               {props.user.time}
